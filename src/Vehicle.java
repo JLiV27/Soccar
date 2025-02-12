@@ -8,7 +8,6 @@ public class Vehicle {
     public int dy = 3;
     public int width = 50;
     public int height = 50;
-    public Rectangle hitbox;
     public Rectangle hitboxL;
     public Rectangle hitboxR;
     public Rectangle hitboxT;

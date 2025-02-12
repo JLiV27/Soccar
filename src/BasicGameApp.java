@@ -25,6 +25,20 @@ public class BasicGameApp implements Runnable {
     boolean isColliding1 = false;
     boolean isColliding2 = false;
     boolean isColliding3 = false;
+    boolean isColliding4 = false;
+    boolean isColliding5 = false;
+    boolean isColliding6 = false;
+    boolean isColliding7 = false;
+    boolean isColliding8 = false;
+    boolean isColliding9 = false;
+    boolean isColliding10 = false;
+    boolean isColliding11 = false;
+    boolean isColliding12 = false;
+
+    int randChange1 = (int)(Math.random()*5+2);
+    int randChange2 = (int)(Math.random()*5+2);
+    int randChange3 = (int)(Math.random()*5+2);
+    int randChange4 = (int)(Math.random()*5+2);
 
     Image BackgroundPic;
 
@@ -59,13 +73,13 @@ public class BasicGameApp implements Runnable {
 
         //variable and objects
         //create (construct) the objects needed for the game
-        Car1 = new Vehicle(0,400,5,3,150,100);
+        Car1 = new Vehicle(0,400,randChange1,randChange2,150,100);
         Car1.pic = Toolkit.getDefaultToolkit().getImage("Car1R.png");
 
-        Car2 = new Vehicle(850,400,-4,-3,150,100);
+        Car2 = new Vehicle(850,400,-randChange3,randChange4,150,100);
         Car2.pic = Toolkit.getDefaultToolkit().getImage("Car2L.png");
 
-        Ball = new Vehicle(450,400,1,1,100,100);
+        Ball = new Vehicle(450,400,5,5,100,100);
         Ball.pic = Toolkit.getDefaultToolkit().getImage("Ball.png");
 
         BackgroundPic = Toolkit.getDefaultToolkit().getImage("Field.png");
@@ -95,35 +109,91 @@ public class BasicGameApp implements Runnable {
         Car1.move();
         Car2.move();
         Ball.move();
+
+        if(Car1.dx > 0){
+            Car1.pic = Toolkit.getDefaultToolkit().getImage("Car1R.png");
+        }
+        else{
+            Car1.pic = Toolkit.getDefaultToolkit().getImage("Car1L.png");
+        }
+
+        if(Car2.dx > 0){
+            Car2.pic = Toolkit.getDefaultToolkit().getImage("Car2R.png");
+        }
+        else{
+            Car2.pic = Toolkit.getDefaultToolkit().getImage("Car2L.png");
+        }
     }
 
     public void Collide(){
-        if(Car1.hitbox.intersects(Ball.hitbox) && !isColliding1){
+        if(!Car1.hitboxL.intersects(Ball.hitboxR)){
+            isColliding1 = false;
+        }
+        if(!Car1.hitboxL.intersects(Car2.hitboxR)){
+            isColliding2 = false;
+        }
+        if(!Car2.hitboxL.intersects(Ball.hitboxR)){
+            isColliding3 = false;
+        }
+        if(!Car1.hitboxT.intersects(Ball.hitboxB)){
+            isColliding4 = false;
+        }
+        if(!Car1.hitboxT.intersects(Car2.hitboxB)){
+            isColliding5 = false;
+        }
+        if(!Car2.hitboxT.intersects(Ball.hitboxB)){
+            isColliding6 = false;
+        }
+        if(!Car1.hitboxR.intersects(Ball.hitboxL)) {
+            isColliding7 = false;
+        }
+        if(!Car1.hitboxR.intersects(Car2.hitboxL)) {
+            isColliding8 = false;
+        }
+        if(!Car2.hitboxR.intersects(Ball.hitboxL)){
+            isColliding9 = false;
+        }
+        if(!Car1.hitboxB.intersects(Ball.hitboxT)){
+            isColliding10 = false;
+        }
+        if(!Car1.hitboxB.intersects(Car2.hitboxT)) {
+            isColliding11 = false;
+        }
+        if(!Car2.hitboxB.intersects(Ball.hitboxT)){
+            isColliding12 = false;
+        }
+
+
+        if(Car1.hitboxL.intersects(Ball.hitboxR) && !isColliding1){
+            Car1.dx = -Car1.dx;
             Ball.dx = -Ball.dx;
-            Ball.dy = -Ball.dy;
             isColliding1 = true;
         }
-        if(Car1.hitbox.intersects(Car2.hitbox) && !isColliding2){
+        if(Car1.hitboxL.intersects(Car2.hitboxR) && !isColliding2){
             Car1.dx = -Car1.dx;
-            Car1.dy = -Car1.dy;
             Car2.dx = -Car2.dx;
-            Car2.dy = -Car2.dy;
             isColliding2 = true;
         }
-        if(Car2.hitbox.intersects(Ball.hitbox) && !isColliding3){
+        if(Car2.hitboxL.intersects(Ball.hitboxR) && !isColliding3){
+            Car2.dx = -Car2.dx;
             Ball.dx = -Ball.dx;
-            Ball.dy = -Ball.dy;
             isColliding3 = true;
         }
 
-        if(!Car1.hitbox.intersects(Ball.hitbox)){
-            isColliding1 = false;
+        if(Car1.hitboxT.intersects(Ball.hitboxB) && !isColliding4){
+            Car1.dy = -Car1.dy;
+            Ball.dy = -Ball.dy;
+            isColliding4 = true;
         }
-        if(!Car1.hitbox.intersects(Car2.hitbox)){
-            isColliding2 = false;
+        if(Car1.hitboxT.intersects(Car2.hitboxB) && !isColliding5){
+            Car1.dy = -Car1.dy;
+            Car2.dy = -Car2.dy;
+            isColliding5 = true;
         }
-        if(!Car2.hitbox.intersects(Ball.hitbox)){
-            isColliding3 = false;
+        if(Car2.hitboxT.intersects(Ball.hitboxB) && !isColliding6){
+            Car2.dy = -Car2.dy;
+            Ball.dy = -Ball.dy;
+            isColliding6 = true;
         }
     }
 
@@ -138,15 +208,20 @@ public class BasicGameApp implements Runnable {
         g.drawImage(Car2.pic, Car2.xpos, Car2.ypos, Car2.width, Car2.height, null);
         g.drawImage(Ball.pic, Ball.xpos, Ball.ypos, Ball.width, Ball.height, null);
         //draw the images
-        g.drawRect(Car1.hitboxL.x,Car1.hitboxL.y,Car1.hitboxL.width,Car1.hitboxL.height);
-        g.drawRect(Car1.hitboxR.x,Car1.hitboxR.y,Car1.hitboxR.width,Car1.hitboxR.height);
-        g.drawRect(Car1.hitboxT.x,Car1.hitboxT.y,Car1.hitboxT.width,Car1.hitboxT.height);
-        g.drawRect(Car1.hitboxB.x,Car1.hitboxB.y,Car1.hitboxB.width,Car1.hitboxB.height);
+        g.drawRect(Car1.hitboxL.x,Car1.hitboxL.y+20,20,Car1.hitboxL.height-40);
+        g.drawRect(Car1.hitboxR.x+130,Car1.hitboxR.y+20,20,Car1.hitboxR.height-40);
+        g.drawRect(Car1.hitboxT.x,Car1.hitboxT.y,Car1.hitboxT.width,20);
+        g.drawRect(Car1.hitboxB.x,Car1.hitboxB.y+80,Car1.hitboxB.width,20);
 
-        g.drawRect(Car2.hitboxL.x,Car2.hitboxL.y,Car2.hitboxL.width,Car2.hitboxL.height);
-        g.drawRect(Car2.hitboxR.x,Car2.hitboxR.y,Car2.hitboxR.width,Car2.hitboxR.height);
-        g.drawRect(Car2.hitboxT.x,Car2.hitboxT.y,Car2.hitboxT.width,Car2.hitboxT.height);
-        g.drawRect(Car2.hitboxB.x,Car2.hitboxB.y,Car2.hitboxB.width,Car2.hitboxB.height);
+        g.drawRect(Car2.hitboxL.x,Car2.hitboxL.y+20,20,Car2.hitboxL.height-40);
+        g.drawRect(Car2.hitboxR.x+130,Car2.hitboxR.y+20,20,Car2.hitboxR.height-40);
+        g.drawRect(Car2.hitboxT.x,Car2.hitboxT.y,Car2.hitboxT.width,20);
+        g.drawRect(Car2.hitboxB.x,Car2.hitboxB.y+80,Car2.hitboxB.width,20);
+
+        g.drawRect(Ball.hitboxL.x,Ball.hitboxL.y+20,20,Ball.hitboxL.height-40);
+        g.drawRect(Ball.hitboxR.x+80,Ball.hitboxR.y+20,20,Ball.hitboxR.height-40);
+        g.drawRect(Ball.hitboxT.x,Ball.hitboxT.y,Ball.hitboxT.width,20);
+        g.drawRect(Ball.hitboxB.x,Ball.hitboxB.y+80,Ball.hitboxB.width,20);
 
         g.dispose();
         bufferStrategy.show();
