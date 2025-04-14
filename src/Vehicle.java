@@ -31,7 +31,7 @@ public class Vehicle {
         xpos = xpos + dx;
         ypos = ypos + dy;
 
-        if (ypos >= 700 - width || ypos <= 0) {
+        if (ypos >= 1000 - 3*height || ypos <= 0) {
             dy = -dy;
         }
 

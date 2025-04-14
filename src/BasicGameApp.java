@@ -73,10 +73,10 @@ public class BasicGameApp implements Runnable {
 
         //variable and objects
         //create (construct) the objects needed for the game
-        Car1 = new Vehicle(0,400,randChange1,randChange2,150,100);
+        Car1 = new Vehicle(300,400,0,2,150,100);
         Car1.pic = Toolkit.getDefaultToolkit().getImage("Car1R.png");
 
-        Car2 = new Vehicle(850,400,-randChange3,randChange4,150,100);
+        Car2 = new Vehicle(300,200,0,randChange4,150,100);
         Car2.pic = Toolkit.getDefaultToolkit().getImage("Car2L.png");
 
         Ball = new Vehicle(450,400,5,5,100,100);
@@ -96,6 +96,7 @@ public class BasicGameApp implements Runnable {
     // this is the code that plays the game after you set things up
     public void run() {
         //for the moment we will loop things forever.
+
         while (true) {
             moveThings();  //move all the game objects
             Collide();
@@ -125,75 +126,105 @@ public class BasicGameApp implements Runnable {
         }
     }
 
-    public void Collide(){
-        if(!Car1.hitboxL.intersects(Ball.hitboxR)){
+    public void Collide() {
+        if (!Car1.hitboxL.intersects(Ball.hitboxR)) {
             isColliding1 = false;
         }
-        if(!Car1.hitboxL.intersects(Car2.hitboxR)){
+        if (!Car1.hitboxL.intersects(Car2.hitboxR)) {
             isColliding2 = false;
         }
-        if(!Car2.hitboxL.intersects(Ball.hitboxR)){
+        if (!Car2.hitboxL.intersects(Ball.hitboxR)) {
             isColliding3 = false;
         }
-        if(!Car1.hitboxT.intersects(Ball.hitboxB)){
+        if (!Car1.hitboxT.intersects(Ball.hitboxB)) {
             isColliding4 = false;
         }
-        if(!Car1.hitboxT.intersects(Car2.hitboxB)){
+        if (!Car1.hitboxT.intersects(Car2.hitboxB)) {
             isColliding5 = false;
         }
-        if(!Car2.hitboxT.intersects(Ball.hitboxB)){
+        if (!Car2.hitboxT.intersects(Ball.hitboxB)) {
             isColliding6 = false;
         }
-        if(!Car1.hitboxR.intersects(Ball.hitboxL)) {
+        if (!Car1.hitboxR.intersects(Ball.hitboxL)) {
             isColliding7 = false;
         }
-        if(!Car1.hitboxR.intersects(Car2.hitboxL)) {
+        if (!Car1.hitboxR.intersects(Car2.hitboxL)) {
             isColliding8 = false;
         }
-        if(!Car2.hitboxR.intersects(Ball.hitboxL)){
+        if (!Car2.hitboxR.intersects(Ball.hitboxL)) {
             isColliding9 = false;
         }
-        if(!Car1.hitboxB.intersects(Ball.hitboxT)){
+        if (!Car1.hitboxB.intersects(Ball.hitboxT)) {
             isColliding10 = false;
         }
-        if(!Car1.hitboxB.intersects(Car2.hitboxT)) {
+        if (!Car1.hitboxB.intersects(Car2.hitboxT)) {
             isColliding11 = false;
         }
-        if(!Car2.hitboxB.intersects(Ball.hitboxT)){
+        if (!Car2.hitboxB.intersects(Ball.hitboxT)) {
             isColliding12 = false;
         }
 
 
-        if(Car1.hitboxL.intersects(Ball.hitboxR) && !isColliding1){
+        if (Car1.hitboxL.intersects(Ball.hitboxR) && !isColliding1) {
             Car1.dx = -Car1.dx;
             Ball.dx = -Ball.dx;
             isColliding1 = true;
         }
-        if(Car1.hitboxL.intersects(Car2.hitboxR) && !isColliding2){
+        if (Car1.hitboxL.intersects(Car2.hitboxR) && !isColliding2) {
             Car1.dx = -Car1.dx;
             Car2.dx = -Car2.dx;
             isColliding2 = true;
         }
-        if(Car2.hitboxL.intersects(Ball.hitboxR) && !isColliding3){
+        if (Car2.hitboxL.intersects(Ball.hitboxR) && !isColliding3) {
             Car2.dx = -Car2.dx;
             Ball.dx = -Ball.dx;
             isColliding3 = true;
         }
-
-        if(Car1.hitboxT.intersects(Ball.hitboxB) && !isColliding4){
+        if (Car1.hitboxT.intersects(Ball.hitboxB) && !isColliding4) {
             Car1.dy = -Car1.dy;
             Ball.dy = -Ball.dy;
             isColliding4 = true;
         }
-        if(Car1.hitboxT.intersects(Car2.hitboxB) && !isColliding5){
+        if (Car1.hitboxT.intersects(Car2.hitboxB) && !isColliding5) {
             Car1.dy = -Car1.dy;
             Car2.dy = -Car2.dy;
             isColliding5 = true;
         }
-        if(Car2.hitboxT.intersects(Ball.hitboxB) && !isColliding6){
+        if (Car2.hitboxT.intersects(Ball.hitboxB) && !isColliding6) {
             Car2.dy = -Car2.dy;
             Ball.dy = -Ball.dy;
             isColliding6 = true;
+        }
+        if (Car1.hitboxR.intersects(Ball.hitboxL) && !isColliding7) {
+            Car1.dx = -Car1.dx;
+            Ball.dx = -Ball.dx;
+            isColliding7 = true;
+        }
+        if (Car1.hitboxR.intersects(Car2.hitboxL) && !isColliding8) {
+            Car1.dx = -Car1.dx;
+            Car2.dx = -Car2.dx;
+            isColliding8 = true;
+        }
+        if (Car2.hitboxR.intersects(Ball.hitboxL) && !isColliding9) {
+            Car2.dx = -Car2.dx;
+            Ball.dx = -Ball.dx;
+            isColliding9 = true;
+        }
+        if (Car1.hitboxB.intersects(Ball.hitboxT) && !isColliding10) {
+            Car1.dy = -Car1.dy;
+            Ball.dy = -Ball.dy;
+            isColliding10 = true;
+        }
+        /*if (Car1.hitboxB.intersects(Car2.hitboxT) && !isColliding11) {
+            Car1.dy = -Car1.dy;
+            Car2.dy = -Car2.dy;
+            isColliding11 = true;
+        }*/
+        if (Car2.hitboxB.intersects(Ball.hitboxT) && !isColliding12) {
+            System.out.println("car 2 bottom ball top");
+            Car2.dy = -Car2.dy;
+            Ball.dy = -Ball.dy;
+            isColliding12 = true;
         }
     }
 
@@ -210,18 +241,18 @@ public class BasicGameApp implements Runnable {
         //draw the images
         g.drawRect(Car1.hitboxL.x,Car1.hitboxL.y+20,20,Car1.hitboxL.height-40);
         g.drawRect(Car1.hitboxR.x+130,Car1.hitboxR.y+20,20,Car1.hitboxR.height-40);
-        g.drawRect(Car1.hitboxT.x,Car1.hitboxT.y,Car1.hitboxT.width,20);
-        g.drawRect(Car1.hitboxB.x,Car1.hitboxB.y+80,Car1.hitboxB.width,20);
+        g.drawRect(Car1.hitboxT.x+20,Car1.hitboxT.y,Car1.hitboxT.width-40,20);
+        g.drawRect(Car1.hitboxB.x+20,Car1.hitboxB.y+80,Car1.hitboxB.width-40,20);
 
         g.drawRect(Car2.hitboxL.x,Car2.hitboxL.y+20,20,Car2.hitboxL.height-40);
         g.drawRect(Car2.hitboxR.x+130,Car2.hitboxR.y+20,20,Car2.hitboxR.height-40);
-        g.drawRect(Car2.hitboxT.x,Car2.hitboxT.y,Car2.hitboxT.width,20);
-        g.drawRect(Car2.hitboxB.x,Car2.hitboxB.y+80,Car2.hitboxB.width,20);
+        g.drawRect(Car2.hitboxT.x+20,Car2.hitboxT.y,Car2.hitboxT.width-40,20);
+        g.drawRect(Car2.hitboxB.x+20,Car2.hitboxB.y+80,Car2.hitboxB.width-40,20);
 
         g.drawRect(Ball.hitboxL.x,Ball.hitboxL.y+20,20,Ball.hitboxL.height-40);
         g.drawRect(Ball.hitboxR.x+80,Ball.hitboxR.y+20,20,Ball.hitboxR.height-40);
-        g.drawRect(Ball.hitboxT.x,Ball.hitboxT.y,Ball.hitboxT.width,20);
-        g.drawRect(Ball.hitboxB.x,Ball.hitboxB.y+80,Ball.hitboxB.width,20);
+        g.drawRect(Ball.hitboxT.x+20,Ball.hitboxT.y,Ball.hitboxT.width-40,20);
+        g.drawRect(Ball.hitboxB.x+20,Ball.hitboxB.y+80,Ball.hitboxB.width-40,20);
 
         g.dispose();
         bufferStrategy.show();
@@ -254,11 +285,11 @@ public class BasicGameApp implements Runnable {
         // frame operations
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  //makes the frame close and exit nicely
         frame.pack();  //adjusts the frame and its contents so the sizes are at their default or larger
-        frame.setResizable(false);   //makes it so the frame cannot be resized
+        frame.setResizable(true);   //makes it so the frame cannot be resized
         frame.setVisible(true);      //IMPORTANT!!!  if the frame is not set to visible it will not appear on the screen!
-        /*JFrame jf = new JFrame();
-        jf.setSize(1920,1080);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);*/
+        JFrame jf = new JFrame();
+        jf.setSize(1000,1000);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // sets up things so the screen displays images nicely.
         canvas.createBufferStrategy(2);
